@@ -1,68 +1,72 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using [clean-cra Template](https://github.com/JorgePasco1/cra-template-clean-cra).
+<div align="center">
+  <img src="https://cdn.worldvectorlogo.com/logos/disney-wbackground.svg" width="50%" />
 
-## Available Scripts
 
-In the project directory, you can run:
+  <h1> Disney Plus Clone</h1>
+DP-Clone is a OTT Application with functionality like getting Real-Time movies information using TMDB API.
+  <br>
 
-### `npm start`
+  <a href="https://dp-clone-3c2d8.web.app/"> Live Demo </a>
+</div>
+<br>
+<div align="center">
+<img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" /> <img src="https://badges.frapsoft.com/os/v2/open-source.svg?v=103" /> <img src="https://img.shields.io/badge/maintainer-dawoodxp97-blue" /> <img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" /> <img src="https://img.shields.io/badge/Made%20With-Love-orange.svg" />
+</div>
+<br>
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Tech Stack:
+- Front-End: <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" width="10%" height="20" />
+- API: <img src="https://pbs.twimg.com/profile_images/1243623122089041920/gVZIvphd_400x400.jpg" width="7%" height="70" />
+- Hosting:  <img src="https://img.shields.io/badge/Firebase-Hosting-F1C40F?style=for-the-badge&logo=firebase&logoColor=white" width="20%" height="20" />
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
 
-### `npm test`
+<br>
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Features:
+- Categorized Movie Listing <img src="https://cdn.iconscout.com/icon/premium/png-64-thumb/products-3132973-2606447.png" width="25"/>
+- Get the movie details dynamically from TMDB API in Real-Time and display it in various sections like series, trending series and able to show Cast members in every movie list  etc.
+- User Authentication <img src="https://img.shields.io/badge/firebase-FFFF00?&style=for-the-badge&logo=firebase&logoColor=black" width="10%" height="20"/> (SignIn, SignUp with Email & Password and  Google Auth).
+- View Video Trailer in Pop-Up format.
+- Randomly displays different backdrops for every movie for every reload.
+- Fully Responsive UI (Mobile Friendly).
 
-### `npm run build`
+<br>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Upcoming Features:
+- Wishlist the Movie.
+- Search the movies in Real-Time.
+- Premium Membership for users and its features.
+- Real-Time payment gateway integration for Premium Registrations.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+<br>
+<div align="center">
+  <h2> Homepage </h2>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<img src="https://user-images.githubusercontent.com/77268355/128596755-da398817-4c9d-4eb5-a4af-588fa2bb4aba.png" />
+  <br>
+  <img src="https://user-images.githubusercontent.com/77268355/128596759-c4f2cf22-4be5-4166-b6a7-73b51dff3de6.png" />
+<br>
+  <h2> Login / SignUp </h2>
 
-### `npm run eject`
+  <img src="https://user-images.githubusercontent.com/77268355/128596800-23ab1635-5401-4515-8094-a13a8558b9cb.png" />
+  <br>
+  <img src="https://user-images.githubusercontent.com/77268355/128596803-781968f1-2300-40d9-a7fa-2caef6800685.png" />
+  <br>
+  <img src="https://user-images.githubusercontent.com/77268355/128596808-b6f7daa6-a4e3-4f83-9921-48448caf0359.png" />
+<br>
+<h2> Movie Details </h2>
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<img src="https://user-images.githubusercontent.com/77268355/128596879-0c77fe9d-857d-45e2-bcd4-307fd3b70f9a.png"  />
+  <br>
+  <img src="https://user-images.githubusercontent.com/77268355/128596883-ac63ee53-8ead-474d-aed4-c2f433dfe248.png"  />
+  <br>
+  <img src="https://user-images.githubusercontent.com/77268355/128596886-d36a0b77-a838-41ad-842c-1eb81dd80b81.png"  />
+  <br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  <img src="https://user-images.githubusercontent.com/77268355/128596892-cf0e292e-7f0b-401d-b8c9-d171f5d7e585.png"  />
+  <br>
+  <h4>Made with ❤️ by Shaik Dawood</h4>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+</div>
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
