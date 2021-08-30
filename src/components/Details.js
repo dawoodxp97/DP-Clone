@@ -4,8 +4,15 @@ import styled from "styled-components";
 import { API_KEY, img_url } from "./Requests";
 import axios from "./../Axios";
 import ModalView from "./ModalView";
+import { db } from "../firebase";
+import { useStateValue } from "../StateProvider";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
 
 const Detail = () => {
+  const [{ user }] = useStateValue();
   const { id, media_type } = useParams();
   const fetchData = {
     fetchMovieFull: `/${media_type}/${id}?api_key=${API_KEY}&append_to_response=videos,images`,
@@ -16,7 +23,6 @@ const Detail = () => {
   const [backdrop, SetBackdrop] = useState([]);
   const [video, setVideo] = useState([]);
   const [cast, setCast] = useState([]);
-
   useEffect(() => {
     let isMounted = true;
     async function fetchFullDetails() {
@@ -63,6 +69,26 @@ const Detail = () => {
       isMounted = false;
     };
   }, [fetchData.fetchCast]);
+
+  const uploadWatchlist = () => {
+    db.collection("users")
+      .doc(user?.uid)
+      .collection("watchlist")
+      .doc(data?.id.toString())
+      .set({
+        id: id,
+        media_type: media_type,
+        poster_path: `${img_url}${data?.poster_path}`,
+        title: !data?.title ? "Title Not Available" : data?.title,
+        overview: !data?.overview ? "Overview Not Available" : data?.overview,
+      });
+    notify();
+  };
+
+  const notify = () => {
+    toast.success("🚀 Yeahhh! Added to Watchlist... ", { autoClose: 2000 });
+  };
+
   return (
     <Container>
       <Background>
@@ -101,10 +127,11 @@ const Detail = () => {
             <img src="/images/play-icon-black.png" alt="" />
             <span>Play</span>
           </Player>
-          <AddList>
+          <AddList onClick={uploadWatchlist}>
             <span />
             <span />
           </AddList>
+
           <GroupWatch>
             <div>
               <img src="/images/group-icon.png" alt="" />

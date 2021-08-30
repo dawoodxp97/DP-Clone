@@ -45,21 +45,23 @@ function Register() {
           <Input
             type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value.trimStart())}
           />
           <Heading>Email</Heading>
           <Input
             type="text"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value.trimStart())}
           />
           <Heading>Password</Heading>
           <Input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value.trimStart())}
           />
-          <Submit onClick={signUp}>Submit</Submit>
+          <Submit disabled={!(name && email && password)} onClick={signUp}>
+            Submit
+          </Submit>
           <FormP>
             Already have account ?
             <Link
@@ -208,6 +210,10 @@ const Submit = styled.button`
   &:hover {
     background: none;
     color: #f9f9f9;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
   }
 `;
 const FormP = styled.p`

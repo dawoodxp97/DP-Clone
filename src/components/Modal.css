@@ -1,0 +1,47 @@
+.modal_form {
+  color: #121d25;
+}
+.modal_h2 {
+  color: #121d25;
+}
+.modal_btn {
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-left: 10px;
+  height: 28px;
+  background-color: #010829;
+  color: #f2f2f5;
+  filter: drop-shadow(1px 1px 2px rgb(0 0 0/0.4));
+}
+.modal_close_btn {
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-left: 25rem;
+  height: 2rem;
+  width: 2rem;
+  font-size: larger;
+  background-color: #010829;
+  color: #f2f2f5;
+  filter: drop-shadow(1px 1px 2px rgb(0 0 0/0.4));
+}
+
+.modal_form > input {
+  font-weight: 550;
+  background-color: #f2f2f5;
+  height: 25px;
+  border-radius: 5px;
+  filter: drop-shadow(1px 1px 2px rgb(0 0 0/0.4));
+}
+
+.modal_form > button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}
+
+#edit {
+  cursor: pointer;
+}

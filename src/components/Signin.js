@@ -44,15 +44,17 @@ function Signin() {
           <Input
             type="text"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value.trimStart())}
           />
           <Heading>Password</Heading>
           <Input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value.trimStart())}
           />
-          <Submit onClick={signIn}>Submit</Submit>
+          <Submit disabled={!(email && password)} onClick={signIn}>
+            Submit
+          </Submit>
           <FormP>
             Don't have account ?
             <Link
@@ -72,9 +74,6 @@ function Signin() {
           <GALoginOne onClick={googleAuth}>
             <GALoginOneImg src="/images/g_logo.png" alt="GLogo" />
           </GALoginOne>
-          <GALoginTwo>
-            <GALoginTwoImg src="/images/anony_logo.png" />
-          </GALoginTwo>
         </GALogin>
       </Content>
     </Container>
@@ -196,22 +195,14 @@ const GALoginOne = styled.div`
   height: 50px;
   width: 50px;
 `;
-const GALoginTwo = styled.div`
-  height: 50px;
-  width: 50px;
-`;
+
 const GALoginOneImg = styled.img`
   height: 40px;
   width: 40px;
   border-radius: 15px;
   cursor: pointer;
 `;
-const GALoginTwoImg = styled.img`
-  height: 38px;
-  width: 42px;
-  border-radius: 15px;
-  cursor: pointer;
-`;
+
 const Submit = styled.button`
   margin-top: 25px;
   height: 35px;
@@ -225,6 +216,10 @@ const Submit = styled.button`
   &:hover {
     background: none;
     color: #f9f9f9;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
   }
 `;
 const FormP = styled.p`

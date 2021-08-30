@@ -12,6 +12,7 @@ import { auth } from "./firebase";
 import Movies from "./components/Movies";
 import Series from "./components/Series";
 import Originals from "./components/Originals";
+import Watchlist from "./components/Watchlist";
 function App() {
   const [, dispatch] = useStateValue();
   useEffect(() => {
@@ -34,6 +35,11 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
+          <Route path="/watchlist">
+            <Header />
+            <Watchlist />
+            <Footer />
+          </Route>
           <Route path="/originals">
             <Header />
             <Originals />

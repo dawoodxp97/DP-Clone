@@ -34,10 +34,12 @@ function Header() {
           <img src="/images/search-icon.svg" alt="SEARCH" />
           <span>SEARCH</span>
         </NavMenuOpt>
-        <NavMenuOpt>
-          <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
-          <span>WATCHLIST</span>
-        </NavMenuOpt>
+        <Link to="/watchlist">
+          <NavMenuOpt>
+            <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
+            <span>WATCHLIST</span>
+          </NavMenuOpt>
+        </Link>
         <Link to="/originals">
           <NavMenuOpt>
             <img src="/images/original-icon.svg" alt="ORIGINALS" />
