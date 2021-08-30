@@ -29,11 +29,11 @@ DP-Clone is a OTT Application with functionality like getting Real-Time movies i
 - View Video Trailer in Pop-Up format.
 - Randomly displays different backdrops for every movie for every reload.
 - Fully Responsive UI (Mobile Friendly).
+- Wishlist the Movie(with CRUD Operations).
 
 <br>
 
 # Upcoming Features:
-- Wishlist the Movie.
 - Search the movies in Real-Time.
 - Premium Membership for users and its features.
 - Real-Time payment gateway integration for Premium Registrations.
