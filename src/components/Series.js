@@ -1,42 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "./../Axios";
-import requests, { img_url } from "./Requests";
-function Series() {
-  const [topRatedSeries, setTopRatedSeries] = useState();
-  const [popularSeries, setPopularSeries] = useState();
+import { useFetchData } from "../useFetch";
 
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(requests.fetchTopRatedSeries);
-        setTopRatedSeries(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, []);
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(requests.fetchPopularSeries);
-        setPopularSeries(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, []);
+function Series() {
+  const { popularSeries, topRatedSeries } = useFetchData();
 
   return (
     <Container>
@@ -46,14 +14,11 @@ function Series() {
       </div>
       <Content>
         {popularSeries &&
-          popularSeries.map((movie, key) => (
-            <Wrap key={key}>
-              {movie.id}
-              <Link to={`/detail/${movie.id}/tv`}>
-                <img
-                  src={`${img_url}${movie.poster_path}`}
-                  alt={movie.original_title}
-                />
+          popularSeries.map((movie) => (
+            <Wrap key={movie?.id}>
+              {movie?.id}
+              <Link to={`/detail/popularSeries/${movie?.id}/tv`}>
+                <img src={movie?.poster} alt={movie?.original_title} />
               </Link>
             </Wrap>
           ))}
@@ -64,14 +29,11 @@ function Series() {
       </div>
       <Content>
         {topRatedSeries &&
-          topRatedSeries.map((movie, key) => (
-            <Wrap key={key}>
-              {movie.id}
-              <Link to={`/detail/${movie.id}/tv`}>
-                <img
-                  src={`${img_url}${movie.poster_path}`}
-                  alt={movie.original_title}
-                />
+          topRatedSeries.map((movie) => (
+            <Wrap key={movie?.id}>
+              {movie?.id}
+              <Link to={`/detail/topRatedSeries/${movie?.id}/tv`}>
+                <img src={movie?.poster} alt={movie?.original_title} />
               </Link>
             </Wrap>
           ))}

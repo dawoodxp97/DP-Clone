@@ -1,122 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "./../Axios";
-import requests, { img_url } from "./Requests";
-function Movies() {
-  const [topRatedMovies, setTopRatedMovies] = useState();
-  const [actionMovies, setActionMovies] = useState();
-  const [comedyMovies, setComedyMovies] = useState();
-  const [horrorMovies, setHorrorMovies] = useState();
-  const [romanceMovies, setRomanceMovies] = useState();
-  const [documentaries, setDocumentaries] = useState();
-  const [animatedMovies, setAnimatedMovies] = useState();
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(requests.fetchTopRated);
-        setTopRatedMovies(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, []);
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(requests.fetchAnimateMovies);
-        setAnimatedMovies(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, []);
+import { useFetchData } from "../useFetch";
 
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(requests.fetchActionMovies);
-        setActionMovies(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, []);
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(requests.fetchComedyMovies);
-        setComedyMovies(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, []);
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(requests.fetchHorrorMovies);
-        setHorrorMovies(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, []);
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(requests.fetchRomanceMovies);
-        setRomanceMovies(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, []);
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(requests.fetchDocumentaries);
-        setDocumentaries(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, []);
+function Movies() {
+  const {
+    animatedMovies,
+    topRatedMovies,
+    actionMovies,
+    comedyMovies,
+    horrorMovies,
+    romanceMovies,
+    fetchDocumentaries,
+  } = useFetchData();
+
   return (
     <Container>
       <div>
@@ -125,13 +22,14 @@ function Movies() {
       </div>
       <Content>
         {animatedMovies &&
-          animatedMovies.map((movie, key) => (
-            <Wrap key={key}>
-              {movie.id}
-              <Link to={`/detail/${movie.id}/movie`}>
+          animatedMovies.map((movie) => (
+            <Wrap key={movie?.id}>
+              {movie?.id}
+              <Link to={`/detail/animatedMovies/${movie?.id}/movie`}>
                 <img
-                  src={`${img_url}${movie.poster_path}`}
-                  alt={movie.original_title}
+                  src={movie?.poster}
+                  alt={movie?.original_title}
+                  loading="lazy"
                 />
               </Link>
             </Wrap>
@@ -143,13 +41,14 @@ function Movies() {
       </div>
       <Content>
         {topRatedMovies &&
-          topRatedMovies.map((movie, key) => (
-            <Wrap key={key}>
-              {movie.id}
-              <Link to={`/detail/${movie.id}/movie`}>
+          topRatedMovies.map((movie) => (
+            <Wrap key={movie?.id}>
+              {movie?.id}
+              <Link to={`/detail/topRatedMovies/${movie?.id}/movie`}>
                 <img
-                  src={`${img_url}${movie.poster_path}`}
+                  src={movie?.poster}
                   alt={movie.original_title}
+                  loading="lazy"
                 />
               </Link>
             </Wrap>
@@ -162,13 +61,14 @@ function Movies() {
       </div>
       <Content>
         {actionMovies &&
-          actionMovies.map((movie, key) => (
-            <Wrap key={key}>
-              {movie.id}
-              <Link to={`/detail/${movie.id}/movie`}>
+          actionMovies.map((movie) => (
+            <Wrap key={movie?.id}>
+              {movie?.id}
+              <Link to={`/detail/actionMovies/${movie?.id}/movie`}>
                 <img
-                  src={`${img_url}${movie.poster_path}`}
-                  alt={movie.original_title}
+                  src={movie?.poster}
+                  alt={movie?.original_title}
+                  loading="lazy"
                 />
               </Link>
             </Wrap>
@@ -180,13 +80,14 @@ function Movies() {
       </div>
       <Content>
         {comedyMovies &&
-          comedyMovies.map((movie, key) => (
-            <Wrap key={key}>
-              {movie.id}
-              <Link to={`/detail/${movie.id}/movie`}>
+          comedyMovies.map((movie) => (
+            <Wrap key={movie?.id}>
+              {movie?.id}
+              <Link to={`/detail/comedyMovies/${movie?.id}/movie`}>
                 <img
-                  src={`${img_url}${movie.poster_path}`}
-                  alt={movie.original_title}
+                  src={movie?.poster}
+                  alt={movie?.original_title}
+                  loading="lazy"
                 />
               </Link>
             </Wrap>
@@ -198,13 +99,14 @@ function Movies() {
       </div>
       <Content>
         {horrorMovies &&
-          horrorMovies.map((movie, key) => (
-            <Wrap key={key}>
-              {movie.id}
-              <Link to={`/detail/${movie.id}/movie`}>
+          horrorMovies.map((movie) => (
+            <Wrap key={movie?.id}>
+              {movie?.id}
+              <Link to={`/detail/horrorMovies/${movie?.id}/movie`}>
                 <img
-                  src={`${img_url}${movie.poster_path}`}
-                  alt={movie.original_title}
+                  src={movie?.poster}
+                  alt={movie?.original_title}
+                  loading="lazy"
                 />
               </Link>
             </Wrap>
@@ -216,13 +118,14 @@ function Movies() {
       </div>
       <Content>
         {romanceMovies &&
-          romanceMovies.map((movie, key) => (
-            <Wrap key={key}>
-              {movie.id}
-              <Link to={`/detail/${movie.id}/movie`}>
+          romanceMovies.map((movie) => (
+            <Wrap key={movie?.id}>
+              {movie?.id}
+              <Link to={`/detail/romanceMovies/${movie?.id}/movie`}>
                 <img
-                  src={`${img_url}${movie.poster_path}`}
-                  alt={movie.original_title}
+                  src={movie?.poster}
+                  alt={movie?.original_title}
+                  loading="lazy"
                 />
               </Link>
             </Wrap>
@@ -233,14 +136,15 @@ function Movies() {
         <h4>Documentaries</h4>
       </div>
       <Content>
-        {documentaries &&
-          documentaries.map((movie, key) => (
-            <Wrap key={key}>
-              {movie.id}
-              <Link to={`/detail/${movie.id}/movie`}>
+        {fetchDocumentaries &&
+          fetchDocumentaries.map((movie) => (
+            <Wrap key={movie?.id}>
+              {movie?.id}
+              <Link to={`/detail/fetchDocumentaries/${movie?.id}/movie`}>
                 <img
-                  src={`${img_url}${movie.poster_path}`}
-                  alt={movie.original_title}
+                  src={movie?.poster}
+                  alt={movie?.original_title}
+                  loading="lazy"
                 />
               </Link>
             </Wrap>

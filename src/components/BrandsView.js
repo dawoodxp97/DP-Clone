@@ -94,4 +94,4 @@ const Wrap = styled.div`
   }
 `;
 
-export default BrandsView;
+export default React.memo(BrandsView);

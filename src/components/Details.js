@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { API_KEY, img_url } from "./Requests";
-import axios from "./../Axios";
+import { img_url } from "./Requests";
 import ModalView from "./ModalView";
 import { db } from "../firebase";
 import { useStateValue } from "../StateProvider";
@@ -11,64 +10,41 @@ import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
 
-const Detail = () => {
+const Details = () => {
   const [{ user }] = useStateValue();
-  const { id, media_type } = useParams();
-  const fetchData = {
-    fetchMovieFull: `/${media_type}/${id}?api_key=${API_KEY}&append_to_response=videos,images`,
-    fetchCast: `/${media_type}/${id}/credits?api_key=${API_KEY}&language=en-US`,
-  };
+  const { type, id, media_type } = useParams();
   const [data, setData] = useState({});
-  const [logos, setLogos] = useState({});
-  const [backdrop, SetBackdrop] = useState([]);
-  const [video, setVideo] = useState([]);
   const [cast, setCast] = useState([]);
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchFullDetails() {
-      if (isMounted) {
-        const request = await axios.get(fetchData.fetchMovieFull);
-        setData(request.data);
-        setVideo(
-          request.data.videos.results.filter(
-            (element) => element?.type === "Trailer"
-          )
-        );
-        SetBackdrop(
-          request.data.images.backdrops.filter(
-            (element) => element?.iso_639_1 === null
-          )
-        );
-        setLogos(
-          request.data.images.logos.filter(
-            (element) => element?.iso_639_1 === "en"
-          )
-        );
 
-        return request;
-      }
-    }
-    fetchFullDetails();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, [fetchData.fetchMovieFull]);
   useEffect(() => {
     let isMounted = true;
-    async function fetchCastDetails() {
+    async function fetchDetails() {
       if (isMounted) {
-        const request = await axios.get(fetchData.fetchCast);
-        setCast(request.data.cast.slice(0, 10));
+        const request = await db
+          .collection(type)
+          .doc(id)
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              setData(doc.data());
+              setCast(doc.data().castMem);
+            } else {
+              // doc.data() will be undefined in this case
+              console.log("No such document!");
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting document:", error);
+          });
         return request;
       }
     }
-    fetchCastDetails();
+    fetchDetails();
     window.scrollTo(0, 0);
-    return function cleanup() {
+    return () => {
       isMounted = false;
     };
-  }, [fetchData.fetchCast]);
+  }, [id, type]);
 
   const uploadWatchlist = () => {
     db.collection("users")
@@ -77,9 +53,12 @@ const Detail = () => {
       .doc(data?.id.toString())
       .set({
         id: id,
+        collectionType: type,
         media_type: media_type,
-        poster_path: `${img_url}${data?.poster_path}`,
-        title: !data?.title ? "Title Not Available" : data?.title,
+        poster_path: data?.poster,
+        title: data?.original_title
+          ? data?.original_title
+          : "Title Not Available",
         overview: !data?.overview ? "Overview Not Available" : data?.overview,
       });
     notify();
@@ -94,31 +73,23 @@ const Detail = () => {
       <Background>
         <img
           alt={data.original_title}
-          src={`${img_url}${
-            !backdrop[Math.floor(Math.random() * backdrop.length - 1)]
-              ?.file_path
-              ? data?.backdrop_path
-              : backdrop[Math.floor(Math.random() * backdrop.length - 1)]
-                  ?.file_path
-          }`}
+          src={data?.background_img}
+          loading="lazy"
         />
       </Background>
       <ImageTitle>
-        {!logos[0]?.file_path ? (
-          <h1>{data?.original_title}</h1>
+        {data?.logo ? (
+          <img alt={data?.original_title} src={data?.logo} loading="lazy" />
         ) : (
-          <img
-            alt={data?.original_title}
-            src={`${img_url}${logos[0]?.file_path}`}
-          />
+          <h1>{data?.original_title}</h1>
         )}
         <Gradient></Gradient>
       </ImageTitle>
       <VideoPlayer>
-        {!video[0] ? (
-          "Trailer Not Available"
+        {data?.trailer ? (
+          <ModalView videoUrl={data?.trailer} />
         ) : (
-          <ModalView videoUrl={video[0]?.key} />
+          "Trailer Not Available"
         )}
       </VideoPlayer>
       <ContentMeta>
@@ -402,4 +373,4 @@ const Description = styled.div`
   }
 `;
 
-export default React.memo(Detail);
+export default React.memo(Details);

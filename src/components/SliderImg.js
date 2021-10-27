@@ -248,4 +248,4 @@ const ParaTwo = styled.p`
     line-height: 10px;
   }
 `;
-export default SliderImg;
+export default React.memo(SliderImg);

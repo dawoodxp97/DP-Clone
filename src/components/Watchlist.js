@@ -2,24 +2,21 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import RemoveIcon from "@material-ui/icons/Remove";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import EditIcon from "@material-ui/icons/Edit";
 import { db } from "../firebase";
 import { useStateValue } from "../StateProvider";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Modal from "react-modal";
-import "./Modal.css";
+import { EditText } from "react-edit-text";
+import "react-edit-text/dist/index.css";
 
-Modal.setAppElement("#root");
 toast.configure();
 
 function Watchlist() {
   const [{ user }] = useStateValue();
   const [data, setData] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [title, setTitle] = useState("");
-  const [mId, setMId] = useState("");
 
   useEffect(() => {
     let isMounted = true;
@@ -43,26 +40,13 @@ function Watchlist() {
       }
     }
     fetchWatchlist();
-    return function cleanup() {
+    return () => {
       isMounted = false;
     };
   }, [user]);
+
   const notify = () => {
     toast.info(" Removed from watchlist... ", { autoClose: 1500 });
-  };
-
-  const titleUpdate = (e) => {
-    e.preventDefault();
-    db.collection("users")
-      .doc(user?.uid)
-      .collection("watchlist")
-      .doc(mId)
-      .update({
-        title: title,
-      });
-
-    setTitle("");
-    setIsOpen(false);
   };
 
   return (
@@ -75,16 +59,29 @@ function Watchlist() {
           data?.map((movie) => (
             <Wrap key={movie?.id}>
               <Img>
-                <img src={movie?.data.poster_path} alt="" />
+                <img src={movie?.data.poster_path} alt="" loading="lazy" />
               </Img>
               <Desc>
                 <div>
-                  <h2>{movie?.data.title}</h2>
-                  <EditIcon
-                    id="edit"
-                    onClick={() => {
-                      setIsOpen(true);
-                      setMId(movie?.id);
+                  <EditText
+                    name="textbox"
+                    style={{
+                      width: "auto",
+                      fontSize: "16px",
+                      borderRadius: "0.5rem",
+                      color: "#FFF",
+                      backgroundColor: "#010829",
+                    }}
+                    defaultValue={movie?.data.title}
+                    onChange={setTitle}
+                    onSave={({ value }) => {
+                      db.collection("users")
+                        .doc(user?.uid)
+                        .collection("watchlist")
+                        .doc(movie?.id)
+                        .update({
+                          title: value,
+                        });
                     }}
                   />
                 </div>
@@ -103,7 +100,9 @@ function Watchlist() {
                 >
                   <RemoveIcon />
                 </div>
-                <Link to={`/detail/${movie?.id}/${movie?.data.media_type}`}>
+                <Link
+                  to={`/detail/${movie?.data.collectionType}/${movie?.id}/${movie?.data.media_type}`}
+                >
                   <div>
                     <PlayArrowIcon />
                   </div>
@@ -111,40 +110,6 @@ function Watchlist() {
               </MovieAction>
             </Wrap>
           ))}
-        <Modal
-          isOpen={isOpen}
-          contentLabel="Edit Title Modal"
-          style={{
-            content: {
-              top: "50%",
-              left: "50%",
-              right: "auto",
-              bottom: "auto",
-              marginRight: "-50%",
-              transform: "translate(-50%, -50%)",
-            },
-          }}
-        >
-          <button className="modal_close_btn" onClick={() => setIsOpen(false)}>
-            {" "}
-            X{" "}
-          </button>
-          <h2 className="modal_h2">Update Title</h2>
-          <form className="modal_form">
-            <h5>Title</h5>
-            <input
-              type="text"
-              onChange={(e) => setTitle(e.target.value.trimStart())}
-            />
-            <button
-              disabled={!title}
-              className="modal_btn"
-              onClick={titleUpdate}
-            >
-              Update
-            </button>
-          </form>
-        </Modal>
       </Content>
     </Container>
   );

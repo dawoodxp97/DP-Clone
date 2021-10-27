@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "./../Axios";
 import requests, { img_url } from "./Requests";
+
 function Originals() {
   const [netflixOriginals, setNetflixOriginals] = useState();
 

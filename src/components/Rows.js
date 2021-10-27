@@ -1,54 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "./../Axios";
-import requests, { img_url } from "./Requests";
+import { useFetchData } from "./../useFetch";
+
 function Rows() {
-  const [movies, setMovies] = useState();
-  const [series, setSeries] = useState();
-  const trendingMovies = requests.fetchTrendingMovie;
-  const trendingSeries = requests.fetchTrendingSeries;
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(trendingMovies);
-        setMovies(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, [trendingMovies]);
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(trendingSeries);
-        setSeries(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, [trendingSeries]);
+  const { movies, series } = useFetchData();
+
   return (
     <Container>
       <h4>Trending Movies</h4>
       <Content>
         {movies &&
-          movies.map((movie, key) => (
-            <Wrap key={key}>
+          movies.map((movie) => (
+            <Wrap key={movie.id}>
               {movie.id}
-              <Link to={`/detail/${movie.id}/${movie.media_type}`}>
+              <Link
+                to={`/detail/trendingMovies/${movie.id}/${movie.media_type}`}
+              >
                 <img
-                  src={`${img_url}${movie.poster_path}`}
+                  src={movie.poster}
+                  loading="lazy"
                   alt={movie.original_title}
                 />
               </Link>
@@ -61,9 +32,12 @@ function Rows() {
           series.map((series, key) => (
             <Wrap key={key}>
               {series.id}
-              <Link to={`/detail/${series.id}/${series.media_type}`}>
+              <Link
+                to={`/detail/trendingSeries/${series.id}/${series.media_type}`}
+              >
                 <img
-                  src={`${img_url}${series.poster_path}`}
+                  src={series.poster}
+                  loading="lazy"
                   alt={series.original_title}
                 />
               </Link>

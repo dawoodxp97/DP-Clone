@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { auth, provider } from "../firebase";
@@ -20,7 +20,6 @@ function Signin() {
         alert(error.message);
       });
   };
-
   const signIn = (e) => {
     e.preventDefault();
     auth
