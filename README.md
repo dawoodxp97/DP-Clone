@@ -6,7 +6,7 @@
 DP-Clone is a OTT Application with functionality like getting Real-Time movies information using TMDB API.
   <br>
 
-  <a href="https://dp-clone-3c2d8.web.app/"> Live Demo </a>
+  <a href="https://disney-clone-f74c7.web.app/"> Live Demo </a>
 </div>
 <br>
 <div align="center">
@@ -27,14 +27,13 @@ DP-Clone is a OTT Application with functionality like getting Real-Time movies i
 - Get the movie details dynamically from TMDB API in Real-Time and display it in various sections like series, trending series and able to show Cast members in every movie list  etc.
 - User Authentication <img src="https://img.shields.io/badge/firebase-FFFF00?&style=for-the-badge&logo=firebase&logoColor=black" width="10%" height="20"/> (SignIn, SignUp with Email & Password and  Google Auth).
 - View Video Trailer in Pop-Up format.
-- Randomly displays different backdrops for every movie for every reload.
 - Fully Responsive UI (Mobile Friendly).
 - Wishlist the Movie(with CRUD Operations).
+- Search the movies in Real-Time.
 
 <br>
 
 # Upcoming Features:
-- Search the movies in Real-Time.
 - Premium Membership for users and its features.
 - Real-Time payment gateway integration for Premium Registrations.
 
