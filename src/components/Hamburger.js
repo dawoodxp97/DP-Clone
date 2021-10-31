@@ -14,26 +14,62 @@ const Hamburger = () => {
     </div>
   );
 };
-const Menu = ({ open }) => {
+const Menu = ({ open, setOpen }) => {
   return (
     <StyledMenu open={open}>
       <Link to="/homepage">
-        <div>Home</div>
+        <div
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          Home
+        </div>
       </Link>
       <Link to="/search">
-        <div>Search</div>
+        <div
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          Search
+        </div>
       </Link>
       <Link to="/watchlist">
-        <div>Watchlist</div>
+        <div
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          Watchlist
+        </div>
       </Link>
       <Link to="/originals">
-        <div>Originals</div>
+        <div
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          Originals
+        </div>
       </Link>
       <Link to="/movies">
-        <div>Movies</div>
+        <div
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          Movies
+        </div>
       </Link>
       <Link to="/series">
-        <div>Series</div>
+        <div
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          Series
+        </div>
       </Link>
     </StyledMenu>
   );

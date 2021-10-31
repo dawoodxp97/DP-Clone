@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { auth, provider } from "../firebase";
@@ -91,7 +91,7 @@ const Container = styled.section`
 const Content = styled.div`
   height: 100%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
   @media (max-width: 600px) {
     flex-direction: column;
@@ -145,6 +145,7 @@ const FormGrp = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
+  margin-top: 3rem;
   filter: drop-shadow(3px 5px 2px rgb(0 0 0/0.4));
   @media (max-width: 600px) {
     height: 30rem;
@@ -173,6 +174,7 @@ const Input = styled.input`
   letter-spacing: 1px;
 `;
 const LogoImg = styled.img`
+  margin-top: 1rem;
   height: 80px;
   width: 140px;
   @media (max-width: 600px) {

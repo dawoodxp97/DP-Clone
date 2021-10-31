@@ -23,6 +23,7 @@ export function fetchMovie(collectionType, fetchType) {
           vote_average:
             item?.vote_average === undefined ? "" : item?.vote_average,
           vote_count: item?.vote_count === undefined ? "" : item?.vote_count,
+          type: collectionType,
         })
         .then(() => {
           //Document successfully written!
@@ -118,6 +119,7 @@ export function fetchTv(collectionType, fetchType) {
           vote_average:
             item?.vote_average === undefined ? "" : item?.vote_average,
           vote_count: item?.vote_count === undefined ? "" : item?.vote_count,
+          type: collectionType,
         })
         .then(() => {
           //Document successfully written!

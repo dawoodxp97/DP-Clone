@@ -1,28 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "./../Axios";
-import requests, { img_url } from "./Requests";
+import { useFetchData } from "../useFetch";
 
 function Originals() {
-  const [netflixOriginals, setNetflixOriginals] = useState();
-
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchMovies() {
-      if (isMounted) {
-        const request = await axios.get(requests.fetchOriginals);
-        setNetflixOriginals(request.data.results);
-        return request;
-      }
-    }
-    fetchMovies();
-    window.scrollTo(0, 0);
-    return function cleanup() {
-      isMounted = false;
-    };
-  }, []);
-
+  const { netflixOriginals } = useFetchData();
   return (
     <Container>
       <div>
@@ -31,14 +13,11 @@ function Originals() {
       </div>
       <Content>
         {netflixOriginals &&
-          netflixOriginals.map((movie, key) => (
-            <Wrap key={key}>
-              {movie.id}
-              <Link to={`/detail/${movie.id}/tv`}>
-                <img
-                  src={`${img_url}${movie.poster_path}`}
-                  alt={movie.original_title}
-                />
+          netflixOriginals?.map((movie) => (
+            <Wrap key={movie?.id}>
+              {movie?.id}
+              <Link to={`/detail/netflixOriginals/${movie?.id}/tv`}>
+                <img src={movie.poster} alt={movie.original_title} />
               </Link>
             </Wrap>
           ))}

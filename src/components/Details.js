@@ -83,7 +83,6 @@ const Details = () => {
         ) : (
           <h1>{data?.original_title}</h1>
         )}
-        <Gradient></Gradient>
       </ImageTitle>
       <VideoPlayer>
         {data?.trailer ? (
@@ -121,21 +120,22 @@ const Details = () => {
       </Additionals>
       <H1>Cast Details:</H1>
       <RDT>
-        {cast.map((cast, key) => (
-          <div key={key}>
-            {!cast?.profile_path ? (
-              <img src="/images/no_user.jpg" alt="No User" />
-            ) : (
-              <img src={`${img_url}${cast?.profile_path}`} alt={key} />
-            )}
+        {cast &&
+          cast?.map((cast, key) => (
+            <div key={key}>
+              {!cast?.profile_path ? (
+                <img src="/images/no_user.jpg" alt="No User" />
+              ) : (
+                <img src={`${img_url}${cast?.profile_path}`} alt={key} />
+              )}
 
-            <CD>
-              <h4>{cast?.original_name}</h4>
-              <p>as</p>
-              <p>{cast?.character}</p>
-            </CD>
-          </div>
-        ))}
+              <CD>
+                <h4>{cast?.original_name}</h4>
+                <p>as</p>
+                <p>{cast?.character}</p>
+              </CD>
+            </div>
+          ))}
       </RDT>
     </Container>
   );
@@ -155,7 +155,11 @@ const Additionals = styled.div`
     margin: 0;
   }
 `;
-const H1 = styled.h1``;
+const H1 = styled.h1`
+  @media (max-width: 768px) {
+    font-size: medium;
+  }
+`;
 const RDT = styled.div`
   height: 53vw;
   width: 100%;
@@ -168,6 +172,7 @@ const RDT = styled.div`
   grid-template-columns: repeat(5, minmax(0, 1fr));
   @media (max-width: 768px) {
     padding: 0;
+    margin-top: 1.5rem;
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   div {
@@ -206,20 +211,6 @@ const CD = styled.div`
     @media (max-width: 768px) {
       display: none;
     }
-  }
-`;
-const Gradient = styled.div`
-  background: linear-gradient(to top, #030b17, rgba(0, 0, 0, 0));
-  height: 150px;
-  width: 100%;
-  left: 0px;
-  opacity: 0.8;
-  position: absolute;
-  right: 0px;
-  top: 49.5vw;
-  z-index: -1;
-  @media (max-width: 768px) {
-    display: none;
   }
 `;
 const Background = styled.div`
@@ -369,7 +360,7 @@ const Description = styled.div`
   min-height: 18vw;
   color: rgb(249, 249, 249);
   @media (max-width: 768px) {
-    font-size: 14px;
+    font-size: 16px;
   }
 `;
 

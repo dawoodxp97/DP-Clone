@@ -4,32 +4,17 @@ import styled from "styled-components";
 import { useFetchData } from "../useFetch";
 
 function Series() {
-  const { popularSeries, topRatedSeries } = useFetchData();
+  const { topRatedSeries } = useFetchData();
 
   return (
     <Container>
-      <div>
-        {" "}
-        <h4>Popular Series</h4>
-      </div>
-      <Content>
-        {popularSeries &&
-          popularSeries.map((movie) => (
-            <Wrap key={movie?.id}>
-              {movie?.id}
-              <Link to={`/detail/popularSeries/${movie?.id}/tv`}>
-                <img src={movie?.poster} alt={movie?.original_title} />
-              </Link>
-            </Wrap>
-          ))}
-      </Content>
       <div>
         {" "}
         <h4>Top Rated Series</h4>
       </div>
       <Content>
         {topRatedSeries &&
-          topRatedSeries.map((movie) => (
+          topRatedSeries?.map((movie) => (
             <Wrap key={movie?.id}>
               {movie?.id}
               <Link to={`/detail/topRatedSeries/${movie?.id}/tv`}>
@@ -57,6 +42,8 @@ const Content = styled.div`
   grid-template-columns: repeat(8, minmax(0, 1fr));
   @media (max-width: 768px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-left: 1rem;
+    padding-top: 1rem;
   }
 `;
 

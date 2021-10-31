@@ -1,13 +1,13 @@
 import firebase from "firebase";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCA-NmbKjEwiGU15M5hEo8pVal2UOo6S_M",
-  authDomain: "dp-clone-3c2d8.firebaseapp.com",
-  projectId: "dp-clone-3c2d8",
-  storageBucket: "dp-clone-3c2d8.appspot.com",
-  messagingSenderId: "1048970731010",
-  appId: "1:1048970731010:web:5c739f9c8d015be5aed11b",
-  measurementId: "G-55Q5MRQYJ0",
+  apiKey: "AIzaSyCwlSM2M1Av312FjEAff-4Gc1Flad_f1No",
+  authDomain: "disney-clone-f74c7.firebaseapp.com",
+  projectId: "disney-clone-f74c7",
+  storageBucket: "disney-clone-f74c7.appspot.com",
+  messagingSenderId: "127765675237",
+  appId: "1:127765675237:web:bdadc5172eb1b6dff4e80c",
+  measurementId: "G-1T2QB0N34Q",
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
@@ -16,6 +16,8 @@ const db = firebaseApp.firestore();
 
 const auth = firebase.auth();
 
+const storage = firebase.storage();
+
 const provider = new firebase.auth.GoogleAuthProvider();
 
-export { db, auth, provider };
+export { db, auth, provider, storage };

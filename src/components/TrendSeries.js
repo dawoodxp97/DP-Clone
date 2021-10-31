@@ -3,25 +3,24 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useFetchData } from "../useFetch";
 
-function Movies() {
-  const { topRatedMovies } = useFetchData();
+function TrendSeries() {
+  const { series } = useFetchData();
 
   return (
     <Container>
-      <div>
-        {" "}
-        <h4>Top Rated Movies</h4>
-      </div>
+      <h4>Trending Series</h4>
       <Content>
-        {topRatedMovies &&
-          topRatedMovies?.map((movie) => (
-            <Wrap key={movie?.id}>
-              {movie?.id}
-              <Link to={`/detail/topRatedMovies/${movie?.id}/movie`}>
+        {series &&
+          series?.map((series, key) => (
+            <Wrap key={key}>
+              {series.id}
+              <Link
+                to={`/detail/trendingSeries/${series.id}/${series.media_type}`}
+              >
                 <img
-                  src={movie?.poster}
-                  alt={movie.original_title}
+                  src={series.poster}
                   loading="lazy"
+                  alt={series.original_title}
                 />
               </Link>
             </Wrap>
@@ -30,13 +29,9 @@ function Movies() {
     </Container>
   );
 }
+
 const Container = styled.div`
-  padding: 2vw;
-  div {
-    h4 {
-      margin-top: 3vw;
-    }
-  }
+  padding: 0 0 26px;
 `;
 
 const Content = styled.div`
@@ -61,8 +56,8 @@ const Wrap = styled.div`
   cursor: pointer;
   overflow: hidden;
   position: relative;
-  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   border: 3px solid rgba(249, 249, 249, 0.1);
+  transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   img {
     inset: 0px;
     display: block;
@@ -82,4 +77,5 @@ const Wrap = styled.div`
     border-color: rgba(249, 249, 249, 0.8);
   }
 `;
-export default Movies;
+
+export default TrendSeries;

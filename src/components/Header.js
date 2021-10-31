@@ -30,10 +30,12 @@ function Header() {
             <span>HOME</span>
           </NavMenuOpt>
         </Link>
-        <NavMenuOpt>
-          <img src="/images/search-icon.svg" alt="SEARCH" />
-          <span>SEARCH</span>
-        </NavMenuOpt>
+        <Link to="/search">
+          <NavMenuOpt>
+            <img src="/images/search-icon.svg" alt="SEARCH" />
+            <span>SEARCH</span>
+          </NavMenuOpt>
+        </Link>
         <Link to="/watchlist">
           <NavMenuOpt>
             <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
@@ -60,7 +62,9 @@ function Header() {
         </Link>
       </NavMenu>
       <SignOut>
-        <UserImg src={user?.photoURL} alt="" />
+        <Link to="/profile">
+          <UserImg src={user?.photoURL} alt="" />
+        </Link>
         <DropDown onClick={handleSignOut}>
           <span>Sign out</span>
         </DropDown>
@@ -84,6 +88,9 @@ const Nav = styled.nav`
   padding: 0 36px;
   letter-spacing: 16px;
   z-index: 3;
+  @media (max-width: 768px) {
+    margin-right: 1.5rem;
+  }
 `;
 
 const NavMenu = styled.div`

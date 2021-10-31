@@ -66,7 +66,7 @@ function Watchlist() {
                   <EditText
                     name="textbox"
                     style={{
-                      width: "auto",
+                      maxWidth: "20rem",
                       fontSize: "16px",
                       borderRadius: "0.5rem",
                       color: "#FFF",
@@ -136,6 +136,11 @@ const Wrap = styled.div`
   display: flex;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   border-radius: 2rem;
+  @media (max-width: 768px) {
+    height: 10rem;
+    width: 99%;
+    padding-left: 1rem;
+  }
   &:hover {
     border: 2px solid white;
     transform: scale(1.02);
@@ -148,6 +153,10 @@ const Img = styled.div`
     border-radius: 1rem;
     width: 100%;
     height: 100%;
+    @media (max-width: 768px) {
+      height: 6rem;
+      width: 5rem;
+    }
   }
   @media (max-width: 768px) {
     height: 100%;
@@ -163,14 +172,21 @@ const Desc = styled.div`
     justify-content: space-around;
     align-items: center;
   }
+
   @media (max-width: 768px) {
-    display: none;
+    p {
+      display: none;
+    }
   }
 `;
 const MovieAction = styled.div`
   flex: 0.2;
   padding: 3rem;
   display: flex;
+  a {
+    height: 3rem;
+    width: 3rem;
+  }
   div {
     margin: 1rem;
     display: flex;
@@ -184,10 +200,14 @@ const MovieAction = styled.div`
     &:hover {
       border: 2px solid white;
     }
+    @media (max-width: 768px) {
+      margin-right: -0.5rem;
+    }
   }
   @media (max-width: 768px) {
-    height: 100%;
-    width: -10rem;
+    margin-right: -2rem;
+    height: 4rem;
+    width: -4rem;
   }
 `;
 

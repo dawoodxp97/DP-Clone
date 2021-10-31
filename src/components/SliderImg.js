@@ -176,7 +176,7 @@ const WrapOne = styled.div`
   padding-left: 15px;
   flex: 0.3;
   @media (max-width: 768px) {
-    height: 15rem;
+    display: none;
   }
 `;
 const WrapTwoDiv = styled.div`
@@ -187,12 +187,13 @@ const WrapTwo = styled.img`
   border-radius: 15px;
   width: 100%;
   height: 100%;
-  /* mask-image: linear-gradient(to left, #030b17, rgba(0, 0, 0, 0)); */
-  @media (max-width: 1360px) {
+  @media (min-width: 768px) {
     mask-image: linear-gradient(to left, #030b17, rgba(0, 0, 0, 0));
   }
-  @media (min-width: 1370px) {
-    mask-image: linear-gradient(to left, #030b17, rgba(0, 0, 0, 0));
+
+  @media (max-width: 768px) {
+    height: 100%;
+    width: 87vw;
   }
 `;
 const ImageGradient = styled.div`
@@ -207,6 +208,9 @@ const ImageGradient = styled.div`
   -o-transition: background 0.3s ease-in;
   transition: background 0.3s ease-in;
   background: linear-gradient(to right, #010829, rgba(0, 0, 0, 0));
+  @media (max-width: 768px) {
+    display: none;
+  }
   @media (max-width: 1360px) {
     display: none;
   }
@@ -217,10 +221,7 @@ const ImageGradient = styled.div`
 const HeadingOne = styled.h1`
   color: #fefefe;
   @media (max-width: 768px) {
-    font-size: small;
-  }
-  @media (max-width: 530px) {
-    font-size: x-small;
+    display: none;
   }
 `;
 const ParaOne = styled.p`
@@ -228,10 +229,7 @@ const ParaOne = styled.p`
   font-weight: bold;
   color: #96999e;
   @media (max-width: 768px) {
-    font-size: x-small;
-  }
-  @media (max-width: 530px) {
-    font-size: xx-small;
+    display: none;
   }
 `;
 const ParaTwo = styled.p`
@@ -240,12 +238,7 @@ const ParaTwo = styled.p`
   font-weight: 400;
   color: #b7b9bd;
   @media (max-width: 768px) {
-    font-size: small;
-    line-height: 15px;
-  }
-  @media (max-width: 530px) {
-    font-size: x-small;
-    line-height: 10px;
+    display: none;
   }
 `;
 export default React.memo(SliderImg);
