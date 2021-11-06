@@ -36,8 +36,8 @@ function Signin() {
   return (
     <Container>
       <Content>
-        <LogoImg src="/images/logo-dis.png" alt=""></LogoImg>
         <FormGrp>
+          <LogoImg src="/images/logo-dis.png" alt=""></LogoImg>
           <MainHeading>Sign In</MainHeading>
           <Heading>Email</Heading>
           <Input
@@ -93,57 +93,33 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-image: url("https://i.ibb.co/WKKb3kx/dp-background.jpg");
+    background-size: cover;
+    background-position: top center;
+    opacity: 0.4;
+    mask-image: linear-gradient(to bottom, #030b17, rgba(0, 0, 0, 0));
+  }
   @media (max-width: 600px) {
     flex-direction: column;
-  }
-
-  background: linear-gradient(270deg, #020024, #090979, #020265);
-  background-size: 600% 600%;
-  -webkit-animation: AnimationName 6s ease infinite;
-  -moz-animation: AnimationName 6s ease infinite;
-  animation: AnimationName 6s ease infinite;
-  @-webkit-keyframes AnimationName {
-    0% {
-      background-position: 0% 51%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 51%;
-    }
-  }
-  @-moz-keyframes AnimationName {
-    0% {
-      background-position: 0% 51%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 51%;
-    }
-  }
-  @keyframes AnimationName {
-    0% {
-      background-position: 0% 51%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 51%;
-    }
   }
 `;
 
 const FormGrp = styled.div`
-  height: 25rem;
-  width: 25rem;
+  height: 90vh;
+  width: 25vw;
   border: 2px solid white;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 20px;
   margin-top: 3rem;
   filter: drop-shadow(3px 5px 2px rgb(0 0 0/0.4));
@@ -174,11 +150,14 @@ const Input = styled.input`
   letter-spacing: 1px;
 `;
 const LogoImg = styled.img`
-  margin-top: 1rem;
+  margin-left: 7vw;
   height: 80px;
   width: 140px;
   @media (max-width: 600px) {
     margin-top: 1rem;
+    margin-left: 30vw;
+    height: 50px;
+    width: 70px;
   }
 `;
 const GALogin = styled.div`
@@ -193,6 +172,8 @@ const GALogin = styled.div`
   }
 `;
 const GALoginOne = styled.div`
+  cursor: pointer;
+  position: absolute;
   height: 50px;
   width: 50px;
 `;

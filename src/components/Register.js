@@ -16,7 +16,6 @@ function Register() {
       .then((userCredential) => {
         // User Created
         if (userCredential) {
-          console.log("This is User Credential>>>", userCredential);
           alert("Successfully Created your CTR account. Enjoy your CTR App");
           History.push("/homepage");
         }
@@ -35,11 +34,8 @@ function Register() {
   return (
     <Container>
       <Content>
-        <LogoImg
-          src="https://www.fanthatracks.com/wp-content/uploads/2020/08/disneyplus_template_7.jpg"
-          alt=""
-        ></LogoImg>
         <FormGrp>
+          <LogoImage src="/images/logo-dis.png" alt=""></LogoImage>
           <MainHeading>Sign Up</MainHeading>
           <Heading>Username</Heading>
           <Input
@@ -91,68 +87,45 @@ const Container = styled.section`
   height: 100vh;
 `;
 const Content = styled.div`
-  height: 100%;
+  height: 100vh;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-image: url("https://i.ibb.co/gtm7742/login-background.jpg");
+    background-size: cover;
+    background-position: top center;
+    opacity: 0.35;
+  }
+
   @media (max-width: 600px) {
     flex-direction: column;
-  }
-  background: linear-gradient(270deg, #020024, #090979, #020265);
-  background-size: 600% 600%;
-
-  -webkit-animation: AnimationName 6s ease infinite;
-  -moz-animation: AnimationName 6s ease infinite;
-  animation: AnimationName 6s ease infinite;
-
-  @-webkit-keyframes AnimationName {
-    0% {
-      background-position: 0% 51%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 51%;
-    }
-  }
-  @-moz-keyframes AnimationName {
-    0% {
-      background-position: 0% 51%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 51%;
-    }
-  }
-  @keyframes AnimationName {
-    0% {
-      background-position: 0% 51%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 51%;
-    }
   }
 `;
 
 const FormGrp = styled.div`
   margin-right: 20px;
-  height: 30rem;
+  height: 32rem;
   width: 25rem;
   border: 2px solid white;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 20px;
   filter: drop-shadow(3px 5px 2px rgb(0 0 0/0.4));
   @media (max-width: 600px) {
     height: 80%;
     width: 90%;
+    margin-top: 5rem;
     margin-bottom: 20px;
     margin-left: 20px;
   }
@@ -162,12 +135,21 @@ const FormGrp = styled.div`
     margin-left: 20px;
   }
 `;
+const LogoImage = styled.img`
+  height: 80px;
+  width: 80px;
+  margin-left: 7.5rem;
+  @media (max-width: 600px) {
+    margin-top: 1rem;
+    margin-left: 5rem;
+  }
+`;
 const Heading = styled.h4`
   letter-spacing: 1px;
 `;
 const MainHeading = styled.h1`
   letter-spacing: 1px;
-  margin-left: 8rem;
+  margin-left: 7rem;
 
   @media (max-width: 600px) {
     margin-left: 35%;
@@ -185,16 +167,6 @@ const Input = styled.input`
   background-color: #f9f9f9;
   font-weight: bold;
   letter-spacing: 1px;
-`;
-const LogoImg = styled.img`
-  height: 100%;
-  width: 67%;
-  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  @media (max-width: 600px) {
-    height: 13rem;
-    width: 100%;
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  }
 `;
 
 const Submit = styled.button`

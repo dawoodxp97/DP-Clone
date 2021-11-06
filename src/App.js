@@ -5,6 +5,7 @@ import { useStateValue } from "./StateProvider";
 import { auth } from "./firebase";
 import { fetchMovie, fetchTv } from "./fetchData";
 import requests from "./components/Requests";
+import ClipLoader from "react-spinners/ClipLoader";
 
 //Dynamic Imports
 const Login = lazy(() => import("./components/Login"));
@@ -50,14 +51,8 @@ function App() {
       <Router>
         <Suspense
           fallback={
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Page is Loading...
+            <div className="load">
+              <ClipLoader color="white" loading={true} size={120} />
             </div>
           }
         >
@@ -65,7 +60,6 @@ function App() {
             <Route path="/watchlist">
               <Header />
               <Watchlist />
-              <Footer />
             </Route>
             <Route path="/profile">
               <Header />

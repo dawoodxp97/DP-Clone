@@ -16,6 +16,7 @@ function Search() {
     topRatedSeries
   );
   const [searchedItems, setSearchedItems] = useState([]);
+  const [notFound, setNotFound] = useState(false);
   let data = [];
   data = totalData.filter(
     (elem, index, arr) => arr.findIndex((item) => item.id === elem.id) === index
@@ -30,11 +31,16 @@ function Search() {
         item?.original_title.toLowerCase().includes(title.toLowerCase())
       );
       setSearchedItems(searchObject);
+      if (searchObject.length === 0 && inputEl.current.value !== "") {
+        setNotFound(true);
+      } else {
+        setNotFound(false);
+      }
     } else {
       setSearchedItems([]);
+      setNotFound(false);
     }
   };
-
   return (
     <Container>
       <SearchGroup>
@@ -58,6 +64,18 @@ function Search() {
               </Link>
             </Wrap>
           ))}
+        {notFound ? (
+          <div
+            style={{
+              width: "90vw",
+              padding: "5rem",
+            }}
+          >
+            <p>{`No Movie/TV Show found with the "${inputEl.current.value}" keyword... Please Search a valid Keyword`}</p>
+          </div>
+        ) : (
+          ""
+        )}
       </Content>
     </Container>
   );
@@ -81,15 +99,14 @@ const SearchGroup = styled.div`
 `;
 const SearchInput = styled.input`
   height: 50px;
-  width: 50px;
+  width: 400px;
   border-style: none;
   padding: 10px;
   font-size: 18px;
   letter-spacing: 2px;
   outline: none;
   border-radius: 25px;
-  transition: all 0.5s ease-in-out;
-  background-color: #22a6b3;
+  background-color: #010829;
   padding-right: 40px;
   color: #fff;
   ::placeholder,
@@ -98,13 +115,6 @@ const SearchInput = styled.input`
     font-size: 18px;
     letter-spacing: 2px;
     font-weight: 100;
-  }
-  :focus {
-    width: 300px;
-    border-radius: 0px;
-    background-color: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
   }
 `;
 const SearchBtn = styled.button`
@@ -120,14 +130,6 @@ const SearchBtn = styled.button`
   right: 0px;
   color: #ffffff;
   background-color: transparent;
-  pointer-events: painted;
-  :focus ~ ${SearchInput} {
-    width: 300px;
-    border-radius: 0px;
-    background-color: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
-  }
 `;
 
 const Content = styled.div`

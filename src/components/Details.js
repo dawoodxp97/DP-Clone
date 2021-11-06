@@ -156,6 +156,7 @@ const Additionals = styled.div`
   }
 `;
 const H1 = styled.h1`
+  margin-top: 4rem;
   @media (max-width: 768px) {
     font-size: medium;
   }

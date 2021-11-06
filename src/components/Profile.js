@@ -5,7 +5,6 @@ import { auth, storage } from "./../firebase";
 
 function Profile() {
   const [{ user }] = useStateValue();
-
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState(null);
 
@@ -38,6 +37,14 @@ function Profile() {
   };
   return (
     <Container>
+      <div>
+        <h1 style={{ marginLeft: "4rem" }}>Your Profile</h1>
+        <img
+          style={{ height: "70vh" }}
+          src="https://cdni.iconscout.com/illustration/premium/thumb/man-setting-up-public-profile-4468723-3728636.png"
+          alt=""
+        />
+      </div>
       <Content>
         <img src={user?.photoURL} alt="user" />
         <p>Your Username : {user?.displayName}</p>
@@ -70,9 +77,11 @@ const Container = styled.div`
   padding: 2vw;
   padding-top: 4rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
   @media (max-width: 768px) {
+    flex-direction: column;
     padding: 5vw;
     padding-top: 4rem;
     padding-bottom: 10vw;
@@ -86,6 +95,7 @@ const Content = styled.div`
   align-items: center;
   img {
     border-radius: 1rem;
+    border: 1px solid white;
     height: 8rem;
     width: 8rem;
   }
