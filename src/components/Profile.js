@@ -46,10 +46,23 @@ function Profile() {
         />
       </div>
       <Content>
-        <img src={user?.photoURL} alt="user" />
+        <img
+          src={
+            user?.photoURL
+              ? user?.photoURL
+              : "https://firebasestorage.googleapis.com/v0/b/dp-clone-3c2d8.appspot.com/o/images%2Fusericon.png?alt=media&token=1fcda5e8-16e1-42c1-adaa-a259f03071ec"
+          }
+          alt="user"
+        />
         <p>Your Username : {user?.displayName}</p>
         <p>Your Email : {user?.email}</p>
-        <div>
+        <div
+          style={{
+            border: "1px solid white",
+            padding: "0.5rem",
+            borderRadius: "0.5rem",
+          }}
+        >
           <p>Update you profile picture:</p>
           <form
             onSubmit={(e) => {

@@ -13,7 +13,12 @@ const requests = {
   fetchHorrorMovies: `/discover/movie?api_key=${API_KEY}&with_genres=27`,
   fetchRomanceMovies: `/discover/movie?api_key=${API_KEY}&with_genres=10749`,
   fetchDocumentaries: `/discover/movie?api_key=${API_KEY}&with_genres=99`,
-  fetchMCU: `/list/9387?api_key=${API_KEY}&language=en-US`,
+  fetchMcuMovies: `/list/8106428?api_key=${API_KEY}&language=en-US`,
+  fetchMcuSeries: `/list/8106698?api_key=${API_KEY}&language=en-US`,
+  fetchDisneyMovies: `/list/8106429?api_key=${API_KEY}&language=en-US`,
+  fetchPixarMovies: `/list/9095?api_key=${API_KEY}&language=en-US`,
+  fetchStarwars: `/list/8136?api_key=${API_KEY}&language=en-US`,
+  fetchNatgeo: `/list/8106699?api_key=${API_KEY}&language=en-US`,
 };
 
 export default requests;

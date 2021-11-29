@@ -5,7 +5,10 @@ import { db } from "./firebase";
 export function fetchMovie(collectionType, fetchType) {
   async function fetchMovies() {
     const request = await axios.get(fetchType);
-    const totalData = request.data.results;
+    const totalData =
+      request.data.results === undefined
+        ? request.data.items
+        : request.data.results;
     totalData.map((item) => {
       db.collection(collectionType)
         .doc(item?.id.toString())
@@ -102,7 +105,10 @@ export function fetchMovie(collectionType, fetchType) {
 export function fetchTv(collectionType, fetchType) {
   async function fetchSeries() {
     const request = await axios.get(fetchType);
-    const totalData = request.data.results;
+    const totalData =
+      request.data.results === undefined
+        ? request.data.items
+        : request.data.results;
     totalData.map((item) => {
       db.collection(collectionType)
         .doc(item?.id.toString())

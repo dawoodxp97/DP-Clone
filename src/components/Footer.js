@@ -19,9 +19,9 @@ const Container = styled.div`
   align-items: center;
   background-color: #bebebe;
   margin-top: 2vw;
-  bottom: 0;
+  bottom: 1;
   height: 4vw;
-  position: relative;
+  position: absolute;
   width: 100%;
   border-top-left-radius: 60px;
   border-top-right-radius: 60px;

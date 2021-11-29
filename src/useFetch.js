@@ -11,6 +11,12 @@ const useFetchData = () => {
   const [netflixOriginals, setNetflixOriginals] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [topRatedSeries, setTopRatedSeries] = useState([]);
+  const [disneyMovies, setDisneyMovies] = useState([]);
+  const [mcuMovies, setMcuMovies] = useState([]);
+  const [mcuSeries, setMcuSeries] = useState([]);
+  const [pixarMovies, setPixarMovies] = useState([]);
+  const [starwarsMovies, setStarwarsMovies] = useState([]);
+  const [natGeo, setNatGeo] = useState([]);
 
   //Funtions to get data from database
   async function getData(type, store) {
@@ -36,6 +42,12 @@ const useFetchData = () => {
       getData("netflixOriginals", setNetflixOriginals);
       getData("topRatedMovies", setTopRatedMovies);
       getData("topRatedSeries", setTopRatedSeries);
+      getData("pixarMovies", setPixarMovies);
+      getData("mcuMovies", setMcuMovies);
+      getData("mcuSeries", setMcuSeries);
+      getData("starwarsMovies", setStarwarsMovies);
+      getData("natGeo", setNatGeo);
+      getData("disneyMovies", setDisneyMovies);
     }
     return () => {
       setLoading(false);
@@ -50,6 +62,12 @@ const useFetchData = () => {
     netflixOriginals,
     topRatedMovies,
     topRatedSeries,
+    disneyMovies,
+    mcuMovies,
+    mcuSeries,
+    pixarMovies,
+    natGeo,
+    starwarsMovies,
   };
 };
 

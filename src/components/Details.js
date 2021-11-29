@@ -7,7 +7,9 @@ import { db } from "../firebase";
 import { useStateValue } from "../StateProvider";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import ClipLoader from "react-spinners/ClipLoader";
+import { MdFavorite } from "react-icons/md";
+import { MdOutlineFavoriteBorder } from "react-icons/md";
 toast.configure();
 
 const Details = () => {
@@ -15,26 +17,57 @@ const Details = () => {
   const { type, id, media_type } = useParams();
   const [data, setData] = useState({});
   const [cast, setCast] = useState([]);
+  const [favData, setFavData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    db.collection("users")
+      .doc(user?.uid)
+      .collection("watchlist")
+      .onSnapshot((snapshot) => {
+        setFavData(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        );
+      });
+    return () => {
+      //cleanup
+    };
+  }, [user]);
+
+  const removeFav = () => {
+    db.collection("users")
+      .doc(user?.uid)
+      .collection("watchlist")
+      .doc(id)
+      .delete();
+    notify("Removed from Watchlist...");
+  };
 
   useEffect(() => {
     let isMounted = true;
     async function fetchDetails() {
       if (isMounted) {
         const request = await db
-          .collection(type)
+          .collection(type.toString())
           .doc(id)
           .get()
           .then((doc) => {
             if (doc.exists) {
               setData(doc.data());
               setCast(doc.data().castMem);
+              setLoading(false);
             } else {
               // doc.data() will be undefined in this case
               console.log("No such document!");
+              setLoading(false);
             }
           })
           .catch((error) => {
             console.log("Error getting document:", error);
+            setLoading(false);
           });
         return request;
       }
@@ -53,90 +86,113 @@ const Details = () => {
       .doc(data?.id.toString())
       .set({
         id: id,
-        collectionType: type,
-        media_type: media_type,
+        collectionType: type.toString(),
+        media_type: media_type.toString(),
         poster_path: data?.poster,
         title: data?.original_title
           ? data?.original_title
           : "Title Not Available",
         overview: !data?.overview ? "Overview Not Available" : data?.overview,
       });
-    notify();
+    notify("🚀 Yeahhh! Added to Watchlist... ");
   };
 
-  const notify = () => {
-    toast.success("🚀 Yeahhh! Added to Watchlist... ", { autoClose: 2000 });
+  const notify = (text) => {
+    toast.success(text, { autoClose: 2000 });
   };
-
+  const warnify = () => {
+    toast.error("You need a Premium Account to Play... ", {
+      autoClose: 2000,
+    });
+  };
   return (
     <Container>
-      <Background>
-        <img
-          alt={data.original_title}
-          src={data?.background_img}
-          loading="lazy"
-        />
-      </Background>
-      <ImageTitle>
-        {data?.logo ? (
-          <img alt={data?.original_title} src={data?.logo} loading="lazy" />
-        ) : (
-          <h1>{data?.original_title}</h1>
-        )}
-      </ImageTitle>
-      <VideoPlayer>
-        {data?.trailer ? (
-          <ModalView videoUrl={data?.trailer} />
-        ) : (
-          "Trailer Not Available"
-        )}
-      </VideoPlayer>
-      <ContentMeta>
-        <Controls>
-          <Player>
-            <img src="/images/play-icon-black.png" alt="" />
-            <span>Play</span>
-          </Player>
-          <AddList onClick={uploadWatchlist}>
-            <span />
-            <span />
-          </AddList>
-
-          <GroupWatch>
-            <div>
-              <img src="/images/group-icon.png" alt="" />
-            </div>
-          </GroupWatch>
-        </Controls>
-        <SubTitle>{`Realease Date: ${
-          !data?.release_date ? "NA" : data?.release_date
-        }, Ratings: ${
-          !data?.vote_average ? "NA" : data?.vote_average
-        }, Votes: ${!data?.vote_count ? "NA" : data?.vote_count}`}</SubTitle>
-        <Description>{data?.overview}</Description>
-      </ContentMeta>
-      <Additionals>
-        {!data?.runtime ? "" : <p>Screen time: {data?.runtime} Mins.</p>}
-      </Additionals>
-      <H1>Cast Details:</H1>
-      <RDT>
-        {cast &&
-          cast?.map((cast, key) => (
-            <div key={key}>
-              {!cast?.profile_path ? (
-                <img src="/images/no_user.jpg" alt="No User" />
+      {loading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            height: "90vh",
+            width: "100%",
+          }}
+        >
+          <ClipLoader color="white" loading={loading} size={30} />
+          <p>Loading</p>
+        </div>
+      ) : (
+        <>
+          <Background>
+            <img
+              alt={data.original_title}
+              src={data?.background_img}
+              loading="lazy"
+            />
+          </Background>
+          <ImageTitle>
+            {data?.logo ? (
+              <img alt={data?.original_title} src={data?.logo} loading="lazy" />
+            ) : (
+              <h1>{data?.original_title}</h1>
+            )}
+          </ImageTitle>
+          <VideoPlayer>
+            {data?.trailer ? (
+              <ModalView videoUrl={data?.trailer} />
+            ) : (
+              "Trailer Not Available"
+            )}
+          </VideoPlayer>
+          <ContentMeta>
+            <Controls>
+              <Player onClick={warnify}>
+                <img src="/images/play-icon-black.png" alt="" />
+                <span>Play</span>
+              </Player>
+              {favData.some((item) => item?.data?.id === id) ? (
+                <AddList onClick={removeFav}>
+                  <MdFavorite style={{ fontSize: "larger" }} />
+                </AddList>
               ) : (
-                <img src={`${img_url}${cast?.profile_path}`} alt={key} />
+                <AddList onClick={uploadWatchlist}>
+                  <MdOutlineFavoriteBorder style={{ fontSize: "larger" }} />
+                </AddList>
               )}
+            </Controls>
+            <SubTitle>{`Realease Date: ${
+              !data?.release_date ? "NA" : data?.release_date
+            }, Ratings: ${
+              !data?.vote_average ? "NA" : data?.vote_average
+            }, Votes: ${
+              !data?.vote_count ? "NA" : data?.vote_count
+            }`}</SubTitle>
+            <Description>{data?.overview}</Description>
+          </ContentMeta>
+          <Additionals>
+            {!data?.runtime ? "" : <p>Screen time: {data?.runtime} Mins.</p>}
+          </Additionals>
+          <H1>Cast Details:</H1>
+          <RDT>
+            {cast &&
+              cast?.map((cast, key) => (
+                <div key={key}>
+                  {!cast?.profile_path ? (
+                    <img src="/images/no_user.jpg" alt="No User" />
+                  ) : (
+                    <img src={`${img_url}${cast?.profile_path}`} alt={key} />
+                  )}
 
-              <CD>
-                <h4>{cast?.original_name}</h4>
-                <p>as</p>
-                <p>{cast?.character}</p>
-              </CD>
-            </div>
-          ))}
-      </RDT>
+                  <CD>
+                    <h4>{cast?.original_name}</h4>
+                    <p>as</p>
+                    <p>{cast?.character}</p>
+                  </CD>
+                </div>
+              ))}
+          </RDT>
+        </>
+      )}
     </Container>
   );
 };
@@ -321,26 +377,6 @@ const AddList = styled.div`
       height: 16px;
       transform: translateX(-8px) rotate(0deg);
       width: 2px;
-    }
-  }
-`;
-
-const GroupWatch = styled.div`
-  height: 44px;
-  width: 44px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  background: white;
-  div {
-    height: 40px;
-    width: 40px;
-    background: rgb(0, 0, 0);
-    border-radius: 50%;
-    img {
-      width: 100%;
     }
   }
 `;

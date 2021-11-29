@@ -3,17 +3,35 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useFetchData } from "../useFetch";
 import { UilSearch } from "@iconscout/react-unicons";
+import { debounce } from "lodash";
 
 function Search() {
   const inputEl = useRef("");
-  const { movies, series, netflixOriginals, topRatedMovies, topRatedSeries } =
-    useFetchData();
+  const {
+    movies,
+    series,
+    netflixOriginals,
+    topRatedMovies,
+    topRatedSeries,
+    disneyMovies,
+    mcuMovies,
+    mcuSeries,
+    pixarMovies,
+    natGeo,
+    starwarsMovies,
+  } = useFetchData();
   const totalData = [].concat(
     movies,
     series,
     netflixOriginals,
     topRatedMovies,
-    topRatedSeries
+    topRatedSeries,
+    disneyMovies,
+    mcuMovies,
+    mcuSeries,
+    pixarMovies,
+    natGeo,
+    starwarsMovies
   );
   const [searchedItems, setSearchedItems] = useState([]);
   const [notFound, setNotFound] = useState(false);
@@ -21,9 +39,9 @@ function Search() {
   data = totalData.filter(
     (elem, index, arr) => arr.findIndex((item) => item.id === elem.id) === index
   );
-  const getSearch = () => {
+  const getSearch = debounce(() => {
     getSearchData(data, inputEl.current.value);
-  };
+  }, 500);
 
   const getSearchData = function (data, title) {
     if (title !== "") {
@@ -41,6 +59,7 @@ function Search() {
       setNotFound(false);
     }
   };
+
   return (
     <Container>
       <SearchGroup>

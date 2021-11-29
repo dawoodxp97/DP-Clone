@@ -2,79 +2,112 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../firebase";
+import ClipLoader from "react-spinners/ClipLoader";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+toast.configure();
 
 function Register() {
   const History = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
+  const notify = (text) => {
+    toast.success(`🚀 ${text}...`, { autoClose: 2000 });
+  };
+  const warnify = (text) => {
+    toast.error(`${text}...`, {
+      autoClose: 2000,
+    });
+  };
   const signUp = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         // User Created
-        if (userCredential) {
-          alert("Successfully Created your CTR account. Enjoy your CTR App");
-          History.push("/homepage");
-        }
       })
       .then(() => {
         const currUser = auth.currentUser;
         currUser.updateProfile({
           displayName: name,
         });
+        setIsLoading(false);
+        notify("Successfully Created your CTR account. Enjoy your CTR App");
+        History.push("/signin");
       })
       .catch((error) => {
         console.log(error.code);
-        alert(error.message);
+        warnify(error.message);
+        setIsLoading(false);
       });
   };
   return (
-    <Container>
-      <Content>
-        <FormGrp>
-          <LogoImage src="/images/logo-dis.png" alt=""></LogoImage>
-          <MainHeading>Sign Up</MainHeading>
-          <Heading>Username</Heading>
-          <Input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value.trimStart())}
-          />
-          <Heading>Email</Heading>
-          <Input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value.trimStart())}
-          />
-          <Heading>Password</Heading>
-          <Input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value.trimStart())}
-          />
-          <Submit disabled={!(name && email && password)} onClick={signUp}>
-            Submit
-          </Submit>
-          <FormP>
-            Already have account ?
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "#ff9900",
-                fontWeight: "bold",
-              }}
-              to="/signin"
-            >
-              {" "}
-              Sign-In{" "}
-            </Link>
-          </FormP>
-        </FormGrp>
-      </Content>
-    </Container>
+    <>
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            height: "90vh",
+            width: "100%",
+          }}
+        >
+          <ClipLoader color="white" loading={true} size={30} />
+          <p>Loading</p>
+        </div>
+      ) : (
+        <Container>
+          <Content>
+            <FormGrp>
+              <LogoImage src="/images/logo-dis.png" alt=""></LogoImage>
+              <MainHeading>Sign Up</MainHeading>
+              <Heading>Username</Heading>
+              <Input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value.trimStart())}
+              />
+              <Heading>Email</Heading>
+              <Input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value.trimStart())}
+              />
+              <Heading>Password</Heading>
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value.trimStart())}
+              />
+              <Submit disabled={!(name && email && password)} onClick={signUp}>
+                Submit
+              </Submit>
+              <FormP>
+                Already have account ?
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "#ff9900",
+                    fontWeight: "bold",
+                  }}
+                  to="/signin"
+                >
+                  {" "}
+                  Sign-In{" "}
+                </Link>
+              </FormP>
+            </FormGrp>
+          </Content>
+        </Container>
+      )}
+    </>
   );
 }
 
@@ -92,19 +125,6 @@ const Content = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background-image: url("https://i.ibb.co/gtm7742/login-background.jpg");
-    background-size: cover;
-    background-position: top center;
-    opacity: 0.35;
-  }
 
   @media (max-width: 600px) {
     flex-direction: column;

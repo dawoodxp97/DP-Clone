@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 function SliderImg() {
   let settings = {
     dots: true,
@@ -12,108 +13,116 @@ function SliderImg() {
   };
   return (
     <Carousel {...settings}>
-      <Wrap>
-        <ChildGrp>
-          <WrapOne>
-            <HeadingOne>Luca</HeadingOne>
-            <ParaOne>English . Family . 2021</ParaOne>
-            <ParaTwo>
-              The movie is a coming-of-age story about one young boy
-              experiencing an unforgettable summer filled with gelato, pasta and
-              endless scooter rides.
-            </ParaTwo>
-          </WrapOne>
-          <ImageGradient></ImageGradient>
-          <WrapTwoDiv>
-            <WrapTwo
-              src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/468/1020468-h-54bb249f203c"
-              alt=""
-            />
-          </WrapTwoDiv>
-        </ChildGrp>
-      </Wrap>
-
-      <Wrap>
-        <ChildGrp>
-          <WrapOne>
-            <HeadingOne>WandaVision</HeadingOne>
-            <ParaOne>Marvel . English . Superhero</ParaOne>
-            <ParaTwo>
-              Wanda Maximoff and Vision—two super-powered beings living
-              idealized suburban lives—begin to suspect that everything is not
-              as it seems.
-            </ParaTwo>
-          </WrapOne>
-          <ImageGradient></ImageGradient>
-          <WrapTwoDiv>
-            <WrapTwo
-              src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/1819/911819-h"
-              alt=""
-            />
-          </WrapTwoDiv>
-        </ChildGrp>
-      </Wrap>
-
-      <Wrap>
-        <ChildGrp>
-          <WrapOne>
-            <HeadingOne>Loki</HeadingOne>
-            <ParaOne>Marvel . Superhero</ParaOne>
-            <ParaTwo>
-              The mercurial villain Loki resumes his role as the God of Mischief
-              in a new series that takes place after the events of “Avengers:
-              Endgame.”
-            </ParaTwo>
-          </WrapOne>
-          <ImageGradient></ImageGradient>
-          <WrapTwoDiv>
-            <WrapTwo
-              src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/1681/1011681-h-ac6ee255f074"
-              alt=""
-            />
-          </WrapTwoDiv>
-        </ChildGrp>
-      </Wrap>
-
-      <Wrap>
-        <ChildGrp>
-          <WrapOne>
-            <HeadingOne>Raya and the Last Dragon</HeadingOne>
-            <ParaOne>English . Family . 2021</ParaOne>
-            <ParaTwo>
-              Raya, a fallen princess, must track down the legendary last dragon
-              to stop the evil forces that have returned and threaten her world.
-            </ParaTwo>
-          </WrapOne>
-          <ImageGradient></ImageGradient>
-          <WrapTwoDiv>
-            <WrapTwo
-              src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/1911/1001911-h"
-              alt=""
-            />
-          </WrapTwoDiv>
-        </ChildGrp>
-      </Wrap>
-      <Wrap>
-        <ChildGrp>
-          <WrapOne>
-            <HeadingOne>The Falcon and The Winter Soldier</HeadingOne>
-            <ParaOne>Marvel . Superhero</ParaOne>
-            <ParaTwo>
-              Following the events of “Avengers: Endgame,” Sam Wilson and Bucky
-              Barnes team up in a global adventure that tests their abilities
-              and their patience.
-            </ParaTwo>
-          </WrapOne>
-          <ImageGradient></ImageGradient>
-          <WrapTwoDiv>
-            <WrapTwo
-              src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/6362/936362-h"
-              alt=""
-            />
-          </WrapTwoDiv>
-        </ChildGrp>
-      </Wrap>
+      <Link to="/detail/disneyMovies/508943/movie">
+        <Wrap>
+          <ChildGrp>
+            <WrapOne>
+              <HeadingOne>Luca</HeadingOne>
+              <ParaOne>English . Family . 2021</ParaOne>
+              <ParaTwo>
+                The movie is a coming-of-age story about one young boy
+                experiencing an unforgettable summer filled with gelato, pasta
+                and endless scooter rides.
+              </ParaTwo>
+            </WrapOne>
+            <ImageGradient></ImageGradient>
+            <WrapTwoDiv>
+              <WrapTwo
+                src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/468/1020468-h-54bb249f203c"
+                alt=""
+              />
+            </WrapTwoDiv>
+          </ChildGrp>
+        </Wrap>
+      </Link>
+      <Link to="/detail/mcuSeries/85271/tv">
+        <Wrap>
+          <ChildGrp>
+            <WrapOne>
+              <HeadingOne>WandaVision</HeadingOne>
+              <ParaOne>Marvel . English . Superhero</ParaOne>
+              <ParaTwo>
+                Wanda Maximoff and Vision—two super-powered beings living
+                idealized suburban lives—begin to suspect that everything is not
+                as it seems.
+              </ParaTwo>
+            </WrapOne>
+            <ImageGradient></ImageGradient>
+            <WrapTwoDiv>
+              <WrapTwo
+                src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/1819/911819-h"
+                alt=""
+              />
+            </WrapTwoDiv>
+          </ChildGrp>
+        </Wrap>
+      </Link>
+      <Link to="/detail/mcuSeries/84958/tv">
+        <Wrap>
+          <ChildGrp>
+            <WrapOne>
+              <HeadingOne>Loki</HeadingOne>
+              <ParaOne>Marvel . Superhero</ParaOne>
+              <ParaTwo>
+                The mercurial villain Loki resumes his role as the God of
+                Mischief in a new series that takes place after the events of
+                “Avengers: Endgame.”
+              </ParaTwo>
+            </WrapOne>
+            <ImageGradient></ImageGradient>
+            <WrapTwoDiv>
+              <WrapTwo
+                src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/1681/1011681-h-ac6ee255f074"
+                alt=""
+              />
+            </WrapTwoDiv>
+          </ChildGrp>
+        </Wrap>
+      </Link>
+      <Link to="/detail/disneyMovies/527774/movie">
+        <Wrap>
+          <ChildGrp>
+            <WrapOne>
+              <HeadingOne>Raya and the Last Dragon</HeadingOne>
+              <ParaOne>English . Family . 2021</ParaOne>
+              <ParaTwo>
+                Raya, a fallen princess, must track down the legendary last
+                dragon to stop the evil forces that have returned and threaten
+                her world.
+              </ParaTwo>
+            </WrapOne>
+            <ImageGradient></ImageGradient>
+            <WrapTwoDiv>
+              <WrapTwo
+                src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/1911/1001911-h"
+                alt=""
+              />
+            </WrapTwoDiv>
+          </ChildGrp>
+        </Wrap>
+      </Link>
+      <Link to="/detail/mcuSeries/88396/tv">
+        <Wrap>
+          <ChildGrp>
+            <WrapOne>
+              <HeadingOne>The Falcon and The Winter Soldier</HeadingOne>
+              <ParaOne>Marvel . Superhero</ParaOne>
+              <ParaTwo>
+                Following the events of “Avengers: Endgame,” Sam Wilson and
+                Bucky Barnes team up in a global adventure that tests their
+                abilities and their patience.
+              </ParaTwo>
+            </WrapOne>
+            <ImageGradient></ImageGradient>
+            <WrapTwoDiv>
+              <WrapTwo
+                src="https://img1.hotstarext.com/image/upload/f_auto,t_web_m_1x/sources/r1/cms/prod/6362/936362-h"
+                alt=""
+              />
+            </WrapTwoDiv>
+          </ChildGrp>
+        </Wrap>
+      </Link>
     </Carousel>
   );
 }

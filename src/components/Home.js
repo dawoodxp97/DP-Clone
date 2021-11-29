@@ -2,16 +2,12 @@ import React, { lazy } from "react";
 import styled from "styled-components";
 const BrandsView = lazy(() => import("./BrandsView"));
 const SliderImg = lazy(() => import("./SliderImg"));
-const Rows = lazy(() => import("./Rows"));
-const TrendSeries = lazy(() => import("./TrendSeries"));
 
 function Home() {
   return (
     <Container>
       <SliderImg />
       <BrandsView />
-      <Rows />
-      <TrendSeries />
     </Container>
   );
 }

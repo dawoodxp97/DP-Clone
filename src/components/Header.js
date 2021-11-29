@@ -12,7 +12,7 @@ function Header() {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         auth.signOut();
-        History.push("/");
+        History.push("/signin");
       }
     });
   };
@@ -63,7 +63,14 @@ function Header() {
       </NavMenu>
       <SignOut>
         <Link to="/profile">
-          <UserImg src={user?.photoURL} alt="" />
+          <UserImg
+            src={
+              user?.photoURL
+                ? user?.photoURL
+                : "https://firebasestorage.googleapis.com/v0/b/dp-clone-3c2d8.appspot.com/o/images%2Fusericon.png?alt=media&token=1fcda5e8-16e1-42c1-adaa-a259f03071ec"
+            }
+            alt=""
+          />
         </Link>
         <DropDown onClick={handleSignOut}>
           <span>Sign out</span>
@@ -162,7 +169,7 @@ const UserImg = styled.img`
 
 const DropDown = styled.div`
   position: absolute;
-  top: 48px;
+  top: 53px;
   right: 0px;
   background: rgb(19, 19, 19);
   border: 1px solid rgba(151, 151, 151, 0.34);

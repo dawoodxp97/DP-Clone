@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { auth, provider } from "../firebase";
+import ClipLoader from "react-spinners/ClipLoader";
+
 function Signin() {
   const History = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const googleAuth = () => {
     auth
       .signInWithPopup(provider)
@@ -22,60 +24,108 @@ function Signin() {
   };
   const signIn = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     auth
       .signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         //Signed In
         History.push("/homepage");
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error.code);
         alert(error.message);
+        setIsLoading(false);
       });
   };
   return (
-    <Container>
-      <Content>
-        <FormGrp>
-          <LogoImg src="/images/logo-dis.png" alt=""></LogoImg>
-          <MainHeading>Sign In</MainHeading>
-          <Heading>Email</Heading>
-          <Input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value.trimStart())}
-          />
-          <Heading>Password</Heading>
-          <Input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value.trimStart())}
-          />
-          <Submit disabled={!(email && password)} onClick={signIn}>
-            Submit
-          </Submit>
-          <FormP>
-            Don't have account ?
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "#ff9900",
-                fontWeight: "bold",
-              }}
-              to="/register"
-            >
-              {" "}
-              Sign-Up{" "}
-            </Link>
-          </FormP>
-        </FormGrp>
-        <GALogin>
-          <GALoginOne onClick={googleAuth}>
-            <GALoginOneImg src="/images/g_logo.png" alt="GLogo" />
-          </GALoginOne>
-        </GALogin>
-      </Content>
-    </Container>
+    <>
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            height: "90vh",
+            width: "100%",
+          }}
+        >
+          <ClipLoader color="white" loading={true} size={30} />
+          <p>Loading</p>
+        </div>
+      ) : (
+        <Container>
+          <Content>
+            <FormGrp>
+              <LogoImg
+                src="https://firebasestorage.googleapis.com/v0/b/dp-clone-3c2d8.appspot.com/o/images%2Fanimation_200_kwkktvf4.gif?alt=media&token=db6ce1b5-2d68-434a-bee2-754efbb67a6d"
+                alt=""
+              ></LogoImg>
+              <MainHeading>Sign In</MainHeading>
+              <Heading>Email</Heading>
+              <Input
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value.trimStart())}
+              />
+              <Heading>Password</Heading>
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value.trimStart())}
+              />
+              <Submit disabled={!(email && password)} onClick={signIn}>
+                Submit
+              </Submit>
+              <FormP>
+                Don't have account ?
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "#ff9900",
+                    fontWeight: "bold",
+                  }}
+                  to="/register"
+                >
+                  {" "}
+                  Sign-Up{" "}
+                </Link>
+              </FormP>
+              <GuestLogin
+                onClick={() => {
+                  setEmail("tester@test.in");
+                  setPassword("tester@12345");
+                  setIsLoading(true);
+                  auth
+                    .signInWithEmailAndPassword(
+                      "tester@test.in",
+                      "tester@12345"
+                    )
+                    .then((userCredential) => {
+                      //Signed In
+                      History.push("/homepage");
+                      setIsLoading(false);
+                    })
+                    .catch((error) => {
+                      console.log(error.code);
+                      alert(error.message);
+                      setIsLoading(false);
+                    });
+                }}
+              >
+                <span>Guest Login</span>
+              </GuestLogin>
+            </FormGrp>
+            <GALogin>
+              <GALoginOne onClick={googleAuth}>
+                <GALoginOneImg src="/images/g_logo.png" alt="GLogo" />
+              </GALoginOne>
+            </GALogin>
+          </Content>
+        </Container>
+      )}
+    </>
   );
 }
 
@@ -94,21 +144,28 @@ const Content = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background-image: url("https://i.ibb.co/WKKb3kx/dp-background.jpg");
-    background-size: cover;
-    background-position: top center;
-    opacity: 0.4;
-    mask-image: linear-gradient(to bottom, #030b17, rgba(0, 0, 0, 0));
-  }
   @media (max-width: 600px) {
     flex-direction: column;
+  }
+`;
+
+const GuestLogin = styled.div`
+  height: 1.8rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 0.4rem;
+  width: 6rem;
+  border: 1px solid white;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: small;
+  color: white;
+  filter: drop-shadow(3px 5px 2px rgb(0 0 0/0.4));
+  cursor: pointer;
+  &:hover {
+    background: white;
+    color: #010829;
   }
 `;
 
@@ -150,8 +207,8 @@ const Input = styled.input`
   letter-spacing: 1px;
 `;
 const LogoImg = styled.img`
-  margin-left: 7vw;
-  height: 80px;
+  margin-left: 6.5vw;
+  height: 110px;
   width: 140px;
   @media (max-width: 600px) {
     margin-top: 1rem;
