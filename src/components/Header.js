@@ -19,10 +19,12 @@ function Header() {
   return (
     <Nav>
       <Hamburger />
-      <HeadLogo
-        src="https://secure-media.hotstarext.com/web-assets/prod/images/brand-logos/disney-hotstar-logo-dark.svg"
-        alt=""
-      ></HeadLogo>
+      <Link to="/homepage">
+        <HeadLogo
+          src="https://secure-media.hotstarext.com/web-assets/prod/images/brand-logos/disney-hotstar-logo-dark.svg"
+          alt=""
+        ></HeadLogo>
+      </Link>
       <NavMenu>
         <Link to="/homepage">
           <NavMenuOpt>

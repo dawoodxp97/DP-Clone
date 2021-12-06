@@ -241,6 +241,7 @@ const RDT = styled.div`
       border-radius: 50%;
       transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
       border: 3px solid rgba(249, 249, 249, 0.1);
+      object-fit: cover;
       &:hover {
         transform: scale(1.15);
         border-color: rgba(249, 249, 249, 0.8);
